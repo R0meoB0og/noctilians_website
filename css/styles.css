@@ -1,0 +1,460 @@
+﻿*:target {
+    position: relative;
+    left: -5%;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden; /* Prevents horizontal scroll */
+    width: 100%;
+}
+
+#content-wrap {
+    padding-bottom: 10%; /* Footer height */
+}
+
+body {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* Keeps background fixed while scrolling */
+    margin: 0 0 100px;
+    height: 100%;
+    font-family: 'Bahnschrift Light', monospace;
+    overflow-x: hidden; /* Prevents horizontal scroll */
+    width: 100%;
+}
+
+.custombodydiv {
+    font-family: 'Bahnschrift Light', monospace;
+}
+
+.logo-box {
+    position: fixed;
+    top: 2%;
+    text-align: center;
+    z-index: 96;
+}
+
+.logo {
+    width: 25%;
+}
+
+.imgbtn1 {
+    position: relative;
+    margin-right: 3%;
+    width: 3%;
+    height: auto;
+    cursor: pointer;
+    border: none;
+    z-index: 92;
+}
+
+.imgbtn2 {
+    position: relative;
+    width: 3%;
+    height: auto;
+    cursor: pointer;
+    border: none;
+    z-index: 92;
+}
+
+.imgbtn3 {
+    position: relative;
+    margin-left: 3%;
+    width: 2.5%;
+    height: auto;
+    cursor: pointer;
+    border: none;
+    z-index: 92;
+}
+
+
+/* make the title look dope */
+#bootstrap-overrides h1 {
+    color: white;
+    font-size: 5vw !important;
+    text-shadow: 2px 2px 4px #171414 !important;
+}
+
+#bootstrap-overrides h2 {
+    font-size: 1.8vw !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px #171414 !important;
+}
+
+#bootstrap-overrides p {
+    color: white !important;
+    font-size: 1.5vw !important;
+}
+
+#bootstrap-overrides a {
+    color: white !important;
+    text-decoration: none;
+}
+
+    #bootstrap-overrides a:hover {
+        color: white !important;
+        text-decoration: none; /* or none */
+    }
+
+#bootstrap-overrides a:hover {
+    color: #ccc; /* Light gray on hover */
+}
+
+
+.center-container {
+    position: relative;
+    margin-top: 2.5%;
+    text-align: center;
+}
+
+.about-container {
+    position: relative;
+    margin-top: 2.5%;
+    margin-left: 15% !important;
+    margin-right: 15% !important;
+    padding: 2%;
+    text-align: justify;
+    background-color: black;
+    font-size: 18px;
+    z-index: 3;
+}
+
+
+
+.gallery-container {
+    position: relative;
+    margin-top: 0;
+    text-align: center;
+}
+
+.the-end {
+    position: absolute;
+    bottom: 0;
+    padding: 3%;
+    width: 100%;
+    background-color: #380e8e;
+    color: white;
+    text-align: center;
+}
+
+.section_header {
+    position: relative;
+    text-align: left;
+    left: 5%;
+    scroll-margin-top: 30px;
+    scroll-margin-left: 100px;
+}
+
+.leftmost-word {
+    position: fixed;
+    text-align: left;
+    font-size: 1.8vw !important;
+    left: 5%;
+    top: 6% !important;
+    z-index: 1000 !important;
+}
+
+    .leftmost-word a {
+        text-decoration: none !important;
+        color: white !important;
+    }
+
+        .leftmost-word a:hover {
+            color: rebeccapurple !important;
+        }
+
+.left-word {
+    position: fixed;
+    text-align: left;
+    font-size: 1.8vw !important;
+    left: 22%;
+    top: 6% !important;
+    z-index: 999 !important;
+}
+
+    .left-word a {
+        text-decoration: none !important;
+        color: white !important;
+    }
+
+        .left-word a:hover {
+            color: rebeccapurple !important;
+        }
+
+.rightmost-word {
+    position: fixed;
+    text-align: right;
+    font-size: 1.8vw !important;
+    right: 5%;
+    top: 6% !important;
+    z-index: 998 !important;
+}
+
+    .rightmost-word a {
+        text-decoration: none !important;
+        color: white !important;
+    }
+
+        .rightmost-word a:hover {
+            color: rebeccapurple !important;
+        }
+
+.right-word {
+    position: fixed;
+    text-align: right;
+    font-size: 1.8vw !important;
+    right: 22%;
+    top: 6% !important;
+    z-index: 997 !important;
+}
+
+    .right-word a {
+        text-decoration: none !important;
+        color: white !important;
+    }
+
+        .right-word a:hover {
+            color: rebeccapurple !important;
+        }
+
+.first-box {}
+
+#bootstrap-overrides .box {
+    position: relative !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    background-color: #380e8e;
+    flex-wrap: wrap;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+.box > * {
+    position: relative;
+    align-items: center;
+    padding-left: 15% !important;
+    padding-right: 4% !important;
+    padding-top: 2% !important;
+    padding-bottom: 1.4% !important;
+    line-height: 1.8 !important;
+    font-size: 1.1em !important;
+    color: white;
+    text-shadow: 2px 2px 4px #171414;
+    flex: 1 1 35% !important;
+    box-sizing: border-box;
+}
+
+.music-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #380e8e;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+    .music-box > * {
+            position: relative;
+            margin-left: 13%;
+            margin-top: 4%;
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: white;
+            text-shadow: 2px 2px 4px #171414;
+            flex: 1 1 35%;
+            box-sizing: border-box;
+        }
+
+.merch-box {
+    position: relative !important;
+    background-color: #380e8e;
+    flex-wrap: wrap;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+    .merch-box > * {
+        position: relative;
+        align-items: center;
+        box-sizing: border-box;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        justify-content: center;
+        justify-items: center;
+        object-position: center center;
+    }
+
+
+.normbutton {
+    font-family: 'Bahnschrift Light', monospace !important;
+    font-size: 1.1em !important;
+    padding: 0 !important;
+    color: white;
+    text-shadow: 2px 2px 4px #171414;
+    border: hidden;
+    outline: none;
+    cursor: pointer;
+}
+
+#bootstrap-overrides .vidbutton {
+    font-family: 'Bahnschrift Light', monospace !important;
+    font-size: 1.1em !important;
+    height: 30px !important;
+    padding: 0 !important;
+    color: white !important;
+    background-color: #380e8e !important;
+    text-shadow: 2px 2px 4px #171414;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.vidbutton:hover {
+    box-shadow: 0px 2px white !important;
+    font-size: 1.15em !important;
+
+}
+
+.deet-margin {
+    margin-left: 12vw !important;
+}
+
+
+.p1img {
+    width: 30vw;
+    height: auto; /* Maintain aspect ratio */
+    border: 4px solid #290a5a;
+}
+
+.p2img {
+    width: 300px;
+    height: auto; /* Maintain aspect ratio */
+    border: 0;
+}
+
+.p3img {
+    width: 10vw;
+    height: auto; /* Maintain aspect ratio */
+}
+
+gal_img {
+    height: 100%;
+    width: 100%;
+}
+
+#bootstrap-overrides .flat-button {
+    color: white; /* White text */
+    border: thin;
+    border-style: solid;
+    border-color: white;
+    background-color: #380e8e !important;
+    cursor: pointer; /* Add a pointer cursor */
+    transition: border 0.3s ease-in-out; /* Smooth hover effect */
+    font-family: 'Bahnschrift Light' !important;
+    font-size: 20px;
+    text-shadow: none;
+    Width: 120px !important;
+    text-align: center !important;
+    object-position: center center !important;
+    margin-right: 20%;
+    text-decoration: none;
+}
+
+    .flat-button:hover {
+    box-shadow: 4px 4px white;
+    color: white;
+    text-shadow: white;
+}
+
+    .flat-button:focus {
+        outline: none;
+    }
+    .flat-button a {
+        text-decoration: none;
+    }
+
+
+.anchor {
+    top: -5vw;
+}
+
+iframe {
+    border-style: solid;
+    border-color: #290a5a;
+    width: 560px;
+    height: 315px;
+}
+
+
+.background-carousel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* Inner carousel fills the screen exactly */
+#imageSlider {
+    height: 100%;
+    width: 100%;
+}
+
+#imageSlider2 {
+    height: 80vh;
+    width: 100%;
+}
+
+
+
+/* Make each item in the carousel fill the background */
+.carousel-item {
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+}
+
+
+.content {
+    position: relative;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.carousel-inner img {
+    height: 100%;
+    width: 100%; /* Set a fixed height for the images */
+    object-fit: cover; /* Maintain aspect ratio while covering the div */
+    object-position: center center; /* Always center */
+    display: block;
+}
+
+#imageSlider2 .carousel-inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: auto;
+}
+
+#imageSlider2 .carousel-inner img {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2vh;
+    height: 70vh; /* limit height */
+    width: auto; /* preserve aspect ratio */
+
+}
+
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.0); /* Semi-transparent background for controls */
+}

@@ -1,244 +1,493 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ============================================================
+   NOCTILIANS — design tokens
+   ============================================================ */
+:root {
+  /* colour */
+  --void:      #0b0d14;   /* base night background */
+  --plum:      #1f1330;   /* secondary gradient stop */
+  --moonlight: #edeae2;   /* primary text on dark */
+  --ember:     #ff8a4c;   /* warm accent — CTAs, hover */
+  --haze:      #7de0d3;   /* cool accent — secondary links */
+  --line:      rgba(237, 234, 226, 0.16);
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "Times New Roman", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --step-0: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
+  --step-2: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  --step-3: clamp(2.75rem, 1.9rem + 4vw, 5.5rem);
+
+  --gutter: 2rem;
+  --scroll-progress: 0; /* 0–1, set by js/main.js on scroll */
 }
 
-html {
-  scroll-behavior: smooth;
+@media (max-width: 780px) {
+  :root { --gutter: 1.25rem; }
 }
 
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--moonlight);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+ul { list-style: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   TYPOGRAPHY HELPERS
+   ============================================================ */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.05; }
+h1 { font-size: var(--step-3); }
+h2.heading { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); font-weight: 600; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--haze);
+  margin-bottom: 0.5rem;
+}
+
+.lead { font-size: var(--step-1); color: var(--moonlight); opacity: 1; margin: 0.75rem 0 1.75rem; }
+
+.mono { font-family: var(--font-mono); font-size: 0.9rem; opacity: 1; }
+
+/* ============================================================
+   LOGO + NAV (fixed chrome)
+   ============================================================ */
+.logo-box { position: fixed; top: 1.5rem; left: 50%; translate: -50% 0; z-index: 40; }
+.logo { width: clamp(90px, 12vw, 140px); }
+
+.site-nav {
+  position: fixed;
+  top: 1.75rem;
+  right: var(--gutter);
+  z-index: 40;
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.site-nav a {
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.site-nav a:hover,
+.site-nav a:focus-visible { color: var(--ember); border-color: var(--ember); }
+
+@media (max-width: 780px) {
+  .logo-box { left: var(--gutter); translate: 0 0; }
+  .site-nav { gap: 1rem; font-size: 0.75rem; flex-wrap: wrap; justify-content: flex-end; max-width: 55vw; }
+}
+
+/* ============================================================
+   MOON PROGRESS — signature scroll indicator
+   ============================================================ */
+.moon-progress {
+  position: fixed;
+  bottom: 1.5rem;
+  right: var(--gutter);
+  z-index: 40;
+  opacity: 0.9;
+}
+.moon-progress__body { fill: var(--moonlight); }
+.moon-progress__shadow {
+  fill: var(--void);
+  /* slides left→right as --scroll-progress goes 0→1, revealing the "full moon" */
+  transform: translateX(calc((1 - var(--scroll-progress)) * -34px + 34px));
+  transition: transform 0.05s linear;
+}
+
+/* ============================================================
+   SLIDE / SECTION BASE
+   ============================================================ */
 .slide {
-  width: 100%;
+  position: relative;
   min-height: 100vh;
-  height: auto;
-
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-
-  position: relative;
-
-  /* Grid setup */
+  padding: clamp(5rem, 8vw, 7rem) var(--gutter) 3rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 1rem;
-  padding: 2rem;
-
+  gap: 1.5rem;
   scroll-snap-align: start;
+  overflow: hidden;
 }
 
-/* Dark overlay */
-.slide::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-}
+main { scroll-snap-type: y proximity; }
 
-/* All items sit above the overlay */
-.slide > * {
-  position: relative;
+/* subtle per-section wash so slides read as distinct rooms, not one flat page */
+.hero      { background: radial-gradient(120% 90% at 50% 20%, var(--plum), var(--void) 65%); }
+.videos    { background: linear-gradient(180deg, var(--void), #12131c); }
+.concerts  { background: linear-gradient(180deg, #12131c, var(--void)); }
+.releases  { background: radial-gradient(140% 100% at 50% 100%, var(--plum), var(--void) 70%); }
+.outro     { background: var(--void); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    ".      title  ."
+    "social  .     scrollcue";
+  place-items: center;
+  text-align: center;
+}
+.hero__title { grid-area: title; display: flex; flex-direction: column; align-items: center; }
+.hero__social { grid-area: social; justify-self: start; display: flex; flex-direction: column; gap: 0.75rem; }
+.hero__scroll-cue {
+  grid-area: scrollcue;
+  justify-self: end;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.hero__scroll-cue span {
+  width: 1px; height: 26px;
+  background: var(--moonlight);
+  animation: scrollcue 1.8s ease-in-out infinite;
+}
+@keyframes scrollcue { 0%, 100% { transform: scaleY(0.4); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+.decor { position: absolute; width: clamp(140px, 22vw, 320px); pointer-events: none; z-index: 0; }
+.decor--moon { top: 8%; right: 6%; }
+.decor--moth { bottom: 1%; right: 4%; opacity: 0.1 }
+
+/* hero text/social sit above the fixed decor PNG below */
+.hero__title,
+.hero__social,
+.hero__scroll-cue { z-index: 3; }
+
+/* ------------------------------------------------------------
+   Fixed, viewport-pinned decorative PNG.
+   --hero-decor-progress (0 → 1) is set by js/main.js, scoped to
+   exactly the scroll distance between the top of the page and
+   the top of #videos. At 0 it's already visible (per the brief:
+   "appear on initial view"); as it climbs, opacity and scale
+   both increase. The .is-past-hero class is a hard cutoff so it
+   doesn't linger, fixed, over the sections that follow.
+------------------------------------------------------------- */
+.hero-decor-fixed {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  translate: -50% 0;
+  width: min(100vw, 100vw);
   z-index: 1;
-  color: white;
+  pointer-events: none;
+  opacity: calc(0.35 - var(--hero-decor-progress, 0) * 0.55);
+  scale: calc(1 + var(--hero-decor-progress, 0) * 0.4);
+  transition: opacity 0.05s linear, scale 0.05s linear;
+}
+.hero-decor-fixed.is-past-hero {
+  opacity: 0;
+  visibility: hidden;
 }
 
-/* Assign a different image to each slide */
-#slide-1 { background-image: url('../images/ghosts.jpg'); }
-#slide-2 { background-image: url('../images/main.jpg'); }
-#slide-3 { background-image: url('../images/daisies.jpg'); } 
-#slide-4 { background-image: url('../images/darkwater.jpg'); } 
-#slide-5 { background-image: url('../images/background.jpg'); } 
-
-/* --- Positioned item styles --- */
-
-.item-top-left {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: start;
-  justify-self: start;
-
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+@media (max-width: 780px) {
+  .hero-decor-fixed { width: min(100vw, 100vw); right: 4vw; opacity: calc(0.35 - var(--hero-decor-progress, 0) * 0.45); }
 }
 
-.item-top-center {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: start;
-  justify-self: center;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+@media (prefers-reduced-motion: reduce) {
+  .hero-decor-fixed { transition: none; opacity: 0.7; scale: 1; }
 }
 
-.item-top-right {
-  grid-column: 3;
-  grid-row: 1;
-  align-self: start;
-  justify-self: end;
-    /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+@media (max-width: 780px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas: "title" "social" "scrollcue";
+    row-gap: 2.5rem;
+    place-items: center;
+  }
+  .hero__social { justify-self: center; align-items: center; }
+  .hero__scroll-cue { justify-self: center; }
 }
 
-.item-center-left {
-  grid-column: 1;
-  grid-row: 2;
+/* ============================================================
+   VIDEOS
+   ============================================================ */
+.videos {
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "heading heading"
+    "list    player";
+  align-items: start;
+}
+.videos .heading { grid-area: heading; }
+.video-list { grid-area: list; display: flex; flex-direction: column; gap: 0.75rem; }
+.video-list__item {
+  all: unset;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--moonlight);
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.video-list__item:hover,
+.video-list__item:focus-visible { opacity: 1; }
+.video-list__item.is-active { opacity: 1; color: var(--ember); }
+
+.video-player {
+  grid-area: player;
   align-self: center;
   justify-self: center;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
+}
+.video-player iframe { width: 100%; height: 100%; border: 0; }
+
+@media (max-width: 780px) {
+  .videos {
+    grid-template-columns: 1fr;
+    grid-template-areas: "heading" "player" "list";
+  }
+  .video-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1.25rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .video-list__item { white-space: nowrap; border-bottom: none; border-left: 2px solid var(--line); padding-left: 0.6rem; }
+  .video-list__item.is-active { border-left-color: var(--ember); }
 }
 
-.item-center-center {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: center;
-  justify-self: center;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* ============================================================
+   CONCERTS
+   ============================================================ */
+.concerts {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "heading  heading"
+    "upcoming past";
+  align-items: start;
 }
+.concerts .heading { grid-area: heading; }
+.concerts__upcoming { grid-area: upcoming; }
+.concerts__past { grid-area: past; }
+.concerts__upcoming h3 { margin: 0.25rem 0 0.75rem; }
 
-.item-center-images {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: center;
-  justify-self: center;
+.past-list li {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  justify-content: space-between;
   gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.past-list li span:last-child { color: var(--haze); text-align: right; }
+
+@media (max-width: 780px) {
+  .concerts { grid-template-columns: 1fr; grid-template-areas: "heading" "upcoming" "past"; }
 }
 
-.item-center-right {
-  grid-column: 3;
-  grid-row: 2;
-  align-self: center;
-  justify-self: center;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
 
-.item-bottom-left {
-  grid-column: 1;
-  grid-row: 3;
-  align-self: end;
-  justify-self: start;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* ============================================================
+   MUSIC
+   ============================================================ */
+.music {
+  grid-template-columns: 1fr; /* was missing — inherited 3 cols from .slide while
+                                  grid-template-areas only defined 1, so "carousel"
+                                  was silently confined to the first third of the row */
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "heading" "carousel";
+  align-content: start;
 }
-
-.item-bottom-center {
-  grid-column: 2;
-  grid-row: 3;
-  align-self: end;
-  justify-self: center;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.item-bottom-right {
-  grid-column: 3;
-  grid-row: 3;
-  align-self: end;
-  justify-self: end;
-  /* stack children vertically */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* Logo */
-.logo-box {
-    position: fixed;
-    top: 2%;
-    right: 2%;
-    text-align: right;
-    z-index: 96;
-}
-
-.logo {
-    width: 20%;
-}
-
-.flat-button {
-    color: white; /* White text */
-    border: thin;
-    border-style: solid;
-    border-color: white;
-    background-color: black;
-    cursor: pointer; /* Add a pointer cursor */
-    transition: border 0.3s ease-in-out; /* Smooth hover effect */
-    font-family: 'Bahnschrift Light';
-    text-shadow: none;
-    Width: 100px;
-    text-align: center;
-    object-position: center center;
-    margin-right: 20%;
-    text-decoration: none;
-}
-
-.flat-button:hover {
-    box-shadow: 4px 4px white;
-    color: white;
-    text-shadow: white;
-}
-
-.flat-button:focus {
-    outline: none;
-}
-.flat-button a {
-    text-decoration: none;
-}
-
-    
-.vid-button {
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.vid-button:hover {
-    box-shadow: 0px 2px white;
-}
-
-/* .video-wrapper {
+.music .heading,
+.outro .heading { grid-area: heading; }
+ 
+/* ============================================================
+   CAROUSEL — reusable component (music + merch)
+   Two fixes learned from l-imperatrice.cool's .c-slider:
+   1. The wrapper is `position: relative; overflow: hidden;` —
+      this clips anything that tries to blow out past its box,
+      the same way .c-slider does.
+   2. `min-width: 0` on the wrapper itself. It's a CSS Grid item,
+      and grid items default to min-width: auto — meaning the
+      box refuses to shrink below its content's natural width
+      even with overflow set on a child. That let the whole
+      component (buttons included, since they're positioned
+      relative to it) balloon past the viewport. min-width: 0
+      is the actual fix; overflow: hidden is the safety net.
+   ============================================================ */
+.carousel {
+  grid-area: carousel;
   position: relative;
+  overflow: hidden;
   width: 100%;
-  padding-bottom: 56.25%; 
-  height: 0;
+  min-width: 100%;
 }
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-} */
-
+ 
+.carousel-track {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0.25rem 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  cursor: grab;
+}
+.carousel-track.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+ 
+.carousel-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: clamp(190px, 24vw, 280px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+ 
 .release-img {
-    width: 22vw;
-    height: auto; /* Maintain aspect ratio */
-    border: 0;
-    object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+ 
+/* round, outlined, floating over the track — back to the original style,
+   but now inset from the edge and vertically centered like .c-slider_button */
+.carousel-btn {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--moonlight);
+  background: color-mix(in srgb, var(--void) 55%, transparent);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.carousel-btn--prev { left: 0.75rem; }
+.carousel-btn--next { right: 0.75rem; }
+.carousel-btn:hover,
+.carousel-btn:focus-visible { border-color: var(--ember); color: var(--ember); outline: none; }
+ 
+@media (max-width: 780px) {
+  .carousel-btn { width: 2rem; height: 2rem; font-size: 1.05rem; }
+  .carousel-btn--prev { left: 0.4rem; }
+  .carousel-btn--next { right: 0.4rem; }
+}
+ 
+/* ============================================================
+   OUTRO
+   ============================================================ */
+.outro {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "heading heading"
+    "subheading subheading"
+    "merch merch"
+    "contact social";
+  row-gap: 2.5rem;
+  align-content: start;
 }
 
+.outro__subheading { grid-area: subheading; }
+.outro__merch { grid-area: merch; }
+.outro__contact { grid-area: contact; }
+.outro__social { grid-area: social; display: flex; flex-direction: column; gap: 0.75rem; justify-self: end; }
+ 
+@media (max-width: 780px) {
+  .outro {
+    grid-template-columns: 1fr;
+    grid-template-areas: "heading" "subheading" "merch" "contact" "social";
+  }
+  .outro__social { justify-self: start; }
+}
+ 
+/* ============================================================
+   BUTTONS / LINKS
+   ============================================================ */
+.flat-button {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--moonlight);
+  border: 1px solid var(--moonlight);
+  padding: 0.7rem 1.6rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.flat-button:hover,
+.flat-button:focus-visible { background: var(--moonlight); color: var(--void); }
+ 
+.flat-button--solid { background: var(--ember); border-color: var(--ember); color: var(--void); }
+.flat-button--solid:hover { background: transparent; color: var(--ember); }
+ 
+.vid-button {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--moonlight);
+  opacity: 0.75;
+  border-bottom: 1px solid transparent;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  width: fit-content;
+}
+.vid-button:hover,
+.vid-button:focus-visible { opacity: 1; border-color: var(--ember); }
+
+
+/* ============================================================
+   SCROLL REVEAL — decorative cutout PNGs sliding/fading in
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: transform, opacity;
+}
+.reveal[data-reveal="left"]  { transform: translateX(-4rem); }
+.reveal[data-reveal="right"] { transform: translateX(4rem); }
+.reveal[data-reveal="up"]    { transform: translateY(4rem); }
+.reveal.is-visible { opacity: 0.5; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}

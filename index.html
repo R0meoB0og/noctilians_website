@@ -1,123 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>noctilians.com</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/styles.css?id=1234">
+  <meta charset="utf-8">
+  <title>Noctilians</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Noctilians — official website. New single Summer Breeze out now.">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
 
-  <!-- Logo -->
-    <div class="logo-box">
-        <a href="index.html">
-            <img name="Image1" src="images/logo.png" alt="logo" class="logo" />
-        </a>
-    </div>
+  <!-- Signature scroll indicator: moon phases from crescent to full as you scroll the page -->
+  <div class="moon-progress" aria-hidden="true">
+    <svg viewBox="0 0 40 40" width="34" height="34">
+      <circle class="moon-progress__body" cx="20" cy="20" r="16" />
+      <circle class="moon-progress__shadow" cx="20" cy="20" r="16" />
+    </svg>
+  </div>
 
-    <section class="slide" id="slide-1">
-        <div class="item-bottom-left">
-            <a href="https://www.instagram.com/noctilians?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="vid-button">insta link</a>
-            <a href="https://youtube.com/@noctilians9319?si=iWbjjuchiV5rM8Og" class="vid-button">tiktok link</a>
-            <a href="https://www.tiktok.com/@noctiliansband" class="vid-button">youtube link</a> 
-        </div>
-        <div class="item-bottom-center">
-            <p>//||\\ scroll //||\\</p>
-        </div>
-        <div class="item-center-left"> 
-            <h1>CON CUIDADO</h1>
-            <p>acapulco_nights out now<p>
-            <button class="flat-button"> listen </button>
-        </div>
-        <nav class="item-bottom-right">
-            <button class="flat-button"> videos </button>
-            <button class="flat-button"> concerts </button>
-            <button class="flat-button"> releases </button>
-            <button class="flat-button"> merch </button>
-        </nav>
+  <header class="logo-box">
+    <a href="index.html">
+      <img src="images/logo.png" alt="Noctilians" class="logo" />
+    </a>
+  </header>
+
+  <!-- top nav: jumps to sections instead of empty buttons -->
+  <nav class="site-nav" aria-label="Section navigation">
+    <a href="#videos">Videos</a>
+    <a href="#concerts">Concerts</a>
+    <a href="#music">Music</a>
+    <a href="#outro">Lore</a>
+  </nav>
+
+  <main>
+
+    <!-- Fixed decorative PNG: pinned to the viewport, grows + fades in as you
+         scroll through the hero, then hard-hides once the Videos slide starts. -->
+    <img src="images/sb-hands.png" class="hero-decor-fixed" alt="" />
+
+    <!-- ============ HERO ============ -->
+    <section class="slide hero" id="hero">
+      <img src="images/decor-moon.png" class="reveal decor decor--moon" data-reveal="right" alt="" />
+
+      <div class="hero__social">
+        <a href="https://www.instagram.com/noctilians" class="vid-button">Instagram</a>
+        <a href="https://youtube.com/@noctilians9319" class="vid-button">YouTube</a>
+        <a href="https://www.tiktok.com/@noctiliansband" class="vid-button">TikTok</a>
+      </div>
+
+      <div class="hero__title">
+        <p class="eyebrow">new single</p>
+        <h1>Summer Breeze</h1>
+        <p class="lead">out now on all platforms</p>
+        <a href="https://balubrigada.lnk.to/portal" class="flat-button flat-button--solid">Listen</a>
+      </div>
+
     </section>
 
-    <section class="slide" id="slide-2">
-        <h1 class="item-top-left">VIDEOS</h1>
-        <div class="item-center-left">
-            <a href="https://www.youtube.com/embed/o5mLAmhecRw?si=CK29JWlMLs5Bclha" target="YTB" class="vid-button">luscious_live</a>
-            <a href="https://www.youtube.com/embed/1a2qboPo8zQ?si=IG7WhkPudE05_ZvU" target="YTB" class="vid-button">outsider_video</a>
-            <a href="https://www.youtube.com/embed/MQkVRmZEi4M?si=rKafyRjKPyX_1bFe" target="YTB" class="vid-button">bêtise_video</a> 
-            <a href="https://www.youtube.com/embed/WRD81oOAuk0?si=X7YOSLDfD8SqbkrX" target="YTB" class="vid-button">bêtise_analog</a>
-        </div>
-        <div class="item-center-center">
-            <iframe name="YTB" width="560" height="315" src="vid_img.html" style="border: none;"></iframe>
-        </div>
+    <!-- ============ VIDEOS ============ -->
+    <section class="slide videos" id="videos">
+      <h2 class="heading">Videos</h2>
+
+      <div class="video-list" role="tablist" aria-label="Select a video">
+        <button class="video-list__item is-active" role="tab" aria-selected="false"
+                data-video="S6qEhwK56k0">Summer Breeze (Visualizer)</button>
+        <button class="video-list__item" role="tab" aria-selected="false"
+                data-video="o5mLAmhecRw">Luscious Demise (Live)</button>
+        <button class="video-list__item" role="tab" aria-selected="false"
+                data-video="1a2qboPo8zQ">Outsider (Visualizer)</button>
+        <button class="video-list__item" role="tab" aria-selected="false"
+                data-video="MQkVRmZEi4M">Bêtise (Visualizer)</button>
+        <button class="video-list__item" role="tab" aria-selected="false"
+                data-video="WRD81oOAuk0">Bêtise (Analog Visualizer)</button>
+      </div>
+
+      <div class="video-player">
+        <iframe id="video-frame"
+                src="https://www.youtube.com/embed/S6qEhwK56k0"
+                title="Noctilians video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
     </section>
 
-    <section class="slide" id="slide-3">
-        <h1 class="item-top-left">CONCERTS</h1>
-        <div class="item-center-left">
-            <h2>Coming</h2>
-            <h3>Popup du Label</h3>    
-            <p>27/06/2026 - 14 rue Abel, Paris XII</p>
-            <button class="flat-button" href="https://www.popup.paris/"> info </button>
-        </div>
-        <div class="item-center-right">
-            <h2>Past</h2>
-            <p>Boissomnies - 2024</p>
-            <p>Clam' on the Rock - 2024, 2026</p>
-            <p>Daisies - 2024</p>
-            <p>ENSA-V - 2023, 2025</p>
-            <p>L'Arrosoir - 2025</p>
-            <p>L'Osteria - 2025</p>
-            <p>Mazette - 2022</p>
-            <p>Printemps de Bourges - 2023</p>
-            <p>Pointe Lafayette - 2024</p>
-            <p>Punk Paradise - 2026</p>
-            <p>Saozen - 2025</p>
-            <p>Supersonic - 2022, 2023, 2024, 2025 (x2)</p>
-        </div>
+    <!-- ============ CONCERTS ============ -->
+    <section class="slide concerts" id="concerts">
+      <h2 class="heading">Concerts</h2>
+
+      <div class="concerts__upcoming">
+        <p class="eyebrow">coming</p>
+        <h3>Truskel</h3>
+        <p class="mono">12.09.2026 — 12 rue Feydeau, Paris II</p>
+        <a href="https://www.truskel.fr/" class="flat-button">Info</a>
+      </div>
+
+      <div class="concerts__past">
+        <p class="eyebrow">past</p>
+        <ul class="mono past-list">
+          <li><span>Boissomnies</span><span>2024</span></li>
+          <li><span>Clam' on the Rock</span><span>2024, 2026</span></li>
+          <li><span>Daisies</span><span>2024</span></li>
+          <li><span>ENSA-V</span><span>2023-2026 (x3)</span></li>
+          <li><span>L'Arrosoir</span><span>2025</span></li>
+          <li><span>L'Osteria</span><span>2025</span></li>
+          <li><span>Mazette</span><span>2022</span></li>
+          <li><span>Printemps de Bourges</span><span>2023</span></li>
+          <li><span>Pointe Lafayette</span><span>2024</span></li>
+          <li><span>Popup du Label</span><span>2026</span></li>
+          <li><span>Punk Paradise</span><span>2026</span></li>
+          <li><span>Saozen</span><span>2025</span></li>
+          <li><span>Supersonic</span><span>2022–2025 (x5)</span></li>
+        </ul>
+      </div>
     </section>
 
-    <section class="slide" id="slide-4">
-        <div class="item-top-left">
-            <h1>RELEASES</h1>
-            <p>The last three.</p>
-        </div>
-        <div class="item-center-left"> 
-            <img name="AC" src="images/LDCover.jpg" class="release-img" /> 
-            <p>acapulco_nights</p>
-        </div>
-        <div class="item-center-center"> 
-            <img name="LD" src="images/LDCover.jpg" class="release-img" />
-            <p>luscious_demise</p>
-        </div>
-        <div class="item-center-right"> 
-            <img name="OT" src="images/Outsider_cover.png" class="release-img" />
-            <p>outsider</p>
-        </div>
+    <!-- ============ MUSIC ============ -->
+    <section class="slide music" id="music">
+      <h2 class="heading">Music</h2>
+
+      <div class="carousel" data-carousel>
+        <button class="carousel-btn carousel-btn--prev" data-carousel-prev aria-label="Previous release">‹</button>
+
+        <ul class="carousel-track" data-carousel-track>
+          <li class="carousel-item">
+            <img src="images/sb-cover.jpg" alt="Acapulco Nights cover art" class="release-img" />
+            <p class="mono">summer_breeze</p>
+          </li>
+          <li class="carousel-item">
+            <img src="images/ac-cover.jpg" alt="Acapulco Nights cover art" class="release-img" />
+            <p class="mono">acapulco_nights</p>
+          </li>
+          <li class="carousel-item">
+            <img src="images/ld-cover.jpg" alt="Luscious Demise cover art" class="release-img" />
+            <p class="mono">luscious_demise</p>
+          </li>
+          <li class="carousel-item">
+            <img src="images/outsider-cover.png" alt="Outsider cover art" class="release-img" />
+            <p class="mono">outsider</p>
+          </li>
+          <li class="carousel-item">
+            <img src="images/betise-cover.jpg" alt="Betise cover art" class="release-img" />
+            <p class="mono">bêtise</p>
+          </li>
+        </ul>
+
+        <button class="carousel-btn carousel-btn--next" data-carousel-next aria-label="Next release">›</button>
+      </div>
     </section>
 
-    <section class="slide" id="slide-5">
-        <h1 class="item-top-left">THE END</h1>
-        <div class="item-center-center">
-            <p>looks like you've made it. you can go back to the start if you'd like. 
-                otherwise here's some links to our merch we currently have atm, i.e. a
-                fantastical luscious demise vinyl, a bodacious luscious demise tee and 
-                an incredulous outsider poster you can order right about:</p>
-            <p></p>
-            <a href="" class="vid-button">here for vinyl</a>
-            <a href="" class="vid-button">here for tshirt</a>
-            <a href="" class="vid-button">here for poster</a>
-        </div>
-        <div class="item-bottom-left">
-            <a href="https://www.instagram.com/noctilians?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="vid-button">insta link</a>
-            <a href="https://youtube.com/@noctilians9319?si=iWbjjuchiV5rM8Og" class="vid-button">tiktok link</a>
-            <a href="https://www.tiktok.com/@noctiliansband" class="vid-button">youtube link</a> 
-        </div>
-        <div class="item-bottom-right">
-            <p>CONTACT:</p>
-            <p>contact.noctilians@gmail.com</p>
-            <p>© Roadhouse Studios 2026</p>  
-        </div>
+    <!-- ============ OUTRO / LORE ============ -->
+    <section class="slide outro" id="outro">
+      <img src="images/moth-simple-decor.png" class="reveal decor decor--moth" data-reveal="left" alt="" />
+
+      <h2 class="heading">Lore... </h2>
+
+      <div class="outro__subheading">
+        <p class="eyebrow">merch</p>
+      </div>
+
+      <div class="carousel outro__merch" data-carousel>
+        <button class="carousel-btn carousel-btn--prev" data-carousel-prev aria-label="Previous item">‹</button>
+        <ul class="carousel-track" data-carousel-track>
+          <li class="carousel-item">
+            <img src="images/popup-poster.jpg" alt="Popup Concert poster" class="release-img" />
+            <p class="mono">Popup Concert — poster</p>
+            <a href="#" class="vid-button">ORDER</a>
+          </li>
+          <li class="carousel-item">
+            <img src="images/ld-cover.jpg" alt="Luscious Demise vinyl" class="release-img" />
+            <p class="mono">luscious_demise — vinyl</p>
+            <a href="#" class="vid-button">ORDER</a>
+          </li>
+          <li class="carousel-item">
+            <img src="images/ld-tee.jpg" alt="Luscious Demise t-shirt" class="release-img" />
+            <p class="mono">luscious_demise — tee</p>
+            <a href="#" class="vid-button">ORDER</a>
+          </li>
+          <li class="carousel-item">
+            <img src="images/outsider-poster.jpg" alt="Outsider poster" class="release-img" />
+            <p class="mono">outsider — poster</p>
+            <a href="#" class="vid-button">ORDER</a>
+          </li>
+        </ul>
+        <button class="carousel-btn carousel-btn--next" data-carousel-next aria-label="Next item">›</button>
+      </div>
+
+      <div class="outro__contact">
+        <p class="eyebrow">contact</p>
+        <p class="mono">contact.noctilians@gmail.com</p>
+        <p class="mono">© Roadhouse Studios 2026</p>
+      </div>
+
+      <div class="outro__social">
+        <a href="https://www.instagram.com/noctilians" class="vid-button">Instagram</a>
+        <a href="https://youtube.com/@noctilians9319" class="vid-button">YouTube</a>
+        <a href="https://www.tiktok.com/@noctiliansband" class="vid-button">TikTok</a>
+      </div>
     </section>
 
-    </body>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

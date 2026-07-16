@@ -80,6 +80,7 @@ function initVideoSwitcher() {
   });
 }
 
+
 /* -------------------------------------------------------------
    3. Carousel controls
    Each [data-carousel] gets working prev/next buttons that
@@ -92,7 +93,7 @@ function initCarousels() {
     const prevBtn = carousel.querySelector("[data-carousel-prev]");
     const nextBtn = carousel.querySelector("[data-carousel-next]");
     if (!track) return;
-
+ 
     function step() {
       const item = track.querySelector(".carousel-item");
       if (!item) return track.clientWidth * 0.8;
@@ -100,7 +101,7 @@ function initCarousels() {
       const gap = parseFloat(styles.columnGap || styles.gap || "0");
       return item.getBoundingClientRect().width + gap;
     }
-
+ 
     prevBtn?.addEventListener("click", () => {
       track.scrollBy({ left: -step(), behavior: "smooth" });
     });
@@ -109,8 +110,7 @@ function initCarousels() {
     });
   });
 }
-
-
+ 
 /* -------------------------------------------------------------
    4. Scroll reveal for decorative PNGs
    Elements with class="reveal" fade/slide in when they enter the
@@ -138,8 +138,7 @@ function initRevealOnScroll() {
  
   items.forEach((el) => observer.observe(el));
 }
-
-
+ 
 /* -------------------------------------------------------------
    5. Carousel drag-to-scroll
    Lets a mouse (not just touch) grab and drag the track — the
@@ -150,20 +149,27 @@ function initCarouselDrag() {
     let isDown = false;
     let startX = 0;
     let startScroll = 0;
-
+    let moved = 0; // how far the pointer actually travelled this gesture
+ 
     track.addEventListener("pointerdown", (e) => {
       isDown = true;
+      moved = 0;
       startX = e.clientX;
       startScroll = track.scrollLeft;
       track.classList.add("is-dragging");
-      track.setPointerCapture(e.pointerId);
+      // deliberately NOT calling setPointerCapture here — capturing the
+      // pointer retargets the click that follows to the track itself,
+      // which is what was swallowing clicks on links/buttons inside
+      // carousel items.
     });
-
+ 
     track.addEventListener("pointermove", (e) => {
       if (!isDown) return;
-      track.scrollLeft = startScroll - (e.clientX - startX);
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      track.scrollLeft = startScroll - dx;
     });
-
+ 
     function stopDrag() {
       isDown = false;
       track.classList.remove("is-dragging");
@@ -171,11 +177,22 @@ function initCarouselDrag() {
     track.addEventListener("pointerup", stopDrag);
     track.addEventListener("pointercancel", stopDrag);
     track.addEventListener("pointerleave", stopDrag);
+ 
+    // If the pointer travelled more than a few px, this was a drag, not a
+    // click — swallow the click so swiping past a link doesn't accidentally
+    // navigate. A genuine tap/click (moved ~0px) passes through untouched.
+    track.addEventListener("click", (e) => {
+      if (moved > 6) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
   });
 }
-
+ 
 initScrollEffects();
 initVideoSwitcher();
 initCarousels();
 initCarouselDrag();
 initRevealOnScroll();
+

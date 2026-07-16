@@ -112,7 +112,7 @@ h3 { font-size: var(--step-1); font-weight: 600; }
   bottom: 1.5rem;
   right: var(--gutter);
   z-index: 40;
-  opacity: 0.9;
+  opacity: 1;
 }
 .moon-progress__body { fill: var(--moonlight); }
 .moon-progress__shadow {
@@ -272,10 +272,13 @@ main { scroll-snap-type: y proximity; }
 @media (max-width: 780px) {
   .videos {
     grid-template-columns: 1fr;
-    grid-template-areas: "heading" "player" "list";
+    grid-template-areas: 
+    "heading" "heading"
+    "player" "player" 
+    "list" "list";
   }
   .video-list {
-    flex-direction: row;
+    flex-direction: column;
     overflow-x: auto;
     gap: 1.25rem;
     padding-bottom: 0.5rem;
